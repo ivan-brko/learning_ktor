@@ -4,9 +4,12 @@ import com.example.domain.repository.MongoHandler
 import com.example.domain.user.User
 import com.example.domain.user.UserWrite
 import com.example.domain.user.toUser
+import com.mongodb.DuplicateKeyException
+import com.mongodb.MongoWriteException
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 import org.litote.kmongo.SetTo
+import org.litote.kmongo.coroutine.CoroutineCollection
 import org.litote.kmongo.eq
 import org.litote.kmongo.set
 import java.time.LocalDateTime
@@ -15,7 +18,11 @@ class MongoUserRepositoryService(kodein: Kodein) :
     UserRepositoryService {
     private val mongoHandler by kodein.instance<MongoHandler>()
 
-    private fun getUsersCollection() = mongoHandler.database.getCollection<User>()
+    private suspend fun getUsersCollection(): CoroutineCollection<User> {
+        val users = mongoHandler.database.getCollection<User>()
+        users.ensureUniqueIndex(User::email) //TODO: this probably shouldn't be called on every request
+        return users
+    }
 
     override suspend fun getUserByEmail(email: String): User? {
         val users = getUsersCollection()
@@ -25,9 +32,16 @@ class MongoUserRepositoryService(kodein: Kodein) :
     override suspend fun insertUser(userWrite: UserWrite): User? {
         val users = getUsersCollection()
         val user = userWrite.toUser()
-        return if (users.insertOne(user).wasAcknowledged()) //TODO: check this later when single email is implemented
+
+        return try{
+            users.insertOne(user)
             user
-        else null
+        } catch (e: MongoWriteException){
+            if (e.code == 11000) //user with that email already in DB
+                null
+            else
+                throw e
+        }
     }
 
     override suspend fun deleteUserByEmail(email: String): Boolean {
