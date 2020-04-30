@@ -27,8 +27,8 @@ fun Route.setAuthenticationRoutes(kodein: Kodein){
     route("auth") {
         put("register"){
             val user = call.receive<ApiUserWrite>()
-            when(val user = userDomainService.insertUser(user.toDomain())){
-                is User -> call.respond(user.toApi())
+            when(val retrievedUser = userDomainService.insertUser(user.toDomain())){
+                is User -> call.respond(retrievedUser.toApi())
                 else -> call.respond(HttpStatusCode.Conflict)
             }
         }

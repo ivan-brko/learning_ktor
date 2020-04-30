@@ -1,13 +1,13 @@
 package com.example.utils.serviceTypeConversions
 
 import com.example.utils.hashPassword
-import com.example.domain.user.User as DomainUser
 import com.example.api.user.User as ApiUser
-import com.example.domain.user.UserWrite as DomainUserWrite
 import com.example.api.user.UserWrite as ApiUserWrite
+import com.example.domain.user.User as DomainUser
+import com.example.domain.user.UserWrite as DomainUserWrite
 
 fun DomainUser.toApi() =
-    ApiUser(this.email, this.firstName, this.lastName)
+    ApiUser(email, firstName, lastName, role, createdAt, updatedAt)
 
 fun ApiUserWrite.toDomain() =
-    DomainUserWrite(this.email, this.firstName, this.lastName, hashPassword(this.password))
+    DomainUserWrite(email, firstName, lastName, hashPassword(password), role)

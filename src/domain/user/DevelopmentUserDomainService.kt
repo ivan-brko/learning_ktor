@@ -1,14 +1,16 @@
 package com.example.domain.user
 
-class DevelopmentUserDomainService : UserDomainService {
-    var users = mutableListOf<User>()
+import com.example.domain.repository.UserRepositoryService
+import org.kodein.di.Kodein
+import org.kodein.di.generic.instance
+
+class DevelopmentUserDomainService(kodein: Kodein) : UserDomainService {
+    val userRepository by kodein.instance<UserRepositoryService>()
 
     override fun getUserByEmail(email: String): User? =
-        users.find { it.email == email }
+        userRepository.getUserByEmail(email)
 
-    override fun insertUser(user: UserWrite): User? {
-        users.add(user.toUser())
-        return user.toUser()
-    }
+    override fun insertUser(user: UserWrite): User? =
+        userRepository.insertUser(user)
 
 }
