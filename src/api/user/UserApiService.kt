@@ -1,9 +1,9 @@
 package com.example.api.user
 
 interface UserApiService{
-    fun insertUser(userWrite: UserWrite): User?
-    fun getUserByEmail(email: String): User?
-    fun getAllUsers(): List<User>
-    fun deleteUserByEmail(email: String): Boolean
-    fun updateUser(userWrite: UserWrite): User?
+    suspend fun insertUser(userWrite: UserWrite): User?
+    suspend fun getUserByEmail(email: String): User?
+    suspend fun getAllUsers(): List<User>
+    suspend fun deleteUserByEmail(email: String): Boolean
+    suspend fun updateUser(userWrite: UserWrite): User?
 }

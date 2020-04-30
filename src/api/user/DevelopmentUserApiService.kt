@@ -6,22 +6,22 @@ import com.example.utils.serviceTypeConversions.toDomain
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 
-class DevelopmentUserApiService(kodein: Kodein): UserApiService{
+class DevelopmentUserApiService(kodein: Kodein) : UserApiService {
     private val userDomainService by kodein.instance<UserDomainService>()
 
-    override fun insertUser(userWrite: UserWrite): User? =
+    override suspend fun insertUser(userWrite: UserWrite): User? =
         userDomainService.insertUser(userWrite.toDomain())?.let { it.toApi() }
 
-    override fun getUserByEmail(email: String): User? =
+    override suspend fun getUserByEmail(email: String): User? =
         userDomainService.getUserByEmail(email)?.toApi()
 
-    override fun getAllUsers(): List<User> =
+    override suspend fun getAllUsers(): List<User> =
         userDomainService.getAllUsers().map { it.toApi() }
 
-    override fun deleteUserByEmail(email: String): Boolean =
+    override suspend fun deleteUserByEmail(email: String): Boolean =
         userDomainService.deleteUserByEmail(email)
 
-    override fun updateUser(userWrite: UserWrite): User? =
-        userDomainService.updateUser(userWrite.toDomain())?.let{it.toApi()}
+    override suspend fun updateUser(userWrite: UserWrite): User? =
+        userDomainService.updateUser(userWrite.toDomain())?.let { it.toApi() }
 
 }

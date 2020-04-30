@@ -1,7 +1,8 @@
+@file:ContextualSerialization(LocalDateTime::class)
 package com.example.domain.user
 
 import com.example.utils.Role
-import com.example.utils.customSerializations.LocalDateTimeSerializer
+import kotlinx.serialization.ContextualSerialization
 import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
 
@@ -12,6 +13,6 @@ data class User(
     val lastName: String,
     val hashedPassword: String,
     val role: Role,
-    @Serializable(with = LocalDateTimeSerializer::class) val createdAt: LocalDateTime,
-    @Serializable(with = LocalDateTimeSerializer::class) val updatedAt: LocalDateTime
+    val createdAt: LocalDateTime,
+    val updatedAt: LocalDateTime
 )

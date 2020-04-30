@@ -1,8 +1,10 @@
+@file:UseSerializers(LocalDateTimeSerializer::class)
 package com.example.api.user
 
 import com.example.utils.Role
 import com.example.utils.customSerializations.LocalDateTimeSerializer
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.UseSerializers
 import java.time.LocalDateTime
 
 
@@ -12,6 +14,6 @@ data class User(
     val firstName: String,
     val lastName: String,
     val role: Role,
-    @Serializable(with = LocalDateTimeSerializer::class) val createdAt: LocalDateTime,
-    @Serializable(with = LocalDateTimeSerializer::class) val updatedAt: LocalDateTime
+    val createdAt: LocalDateTime,
+    val updatedAt: LocalDateTime
 )
