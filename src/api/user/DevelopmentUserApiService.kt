@@ -15,4 +15,13 @@ class DevelopmentUserApiService(kodein: Kodein): UserApiService{
     override fun getUserByEmail(email: String): User? =
         userDomainService.getUserByEmail(email)?.toApi()
 
+    override fun getAllUsers(): List<User> =
+        userDomainService.getAllUsers().map { it.toApi() }
+
+    override fun deleteUserByEmail(email: String): Boolean =
+        userDomainService.deleteUserByEmail(email)
+
+    override fun updateUser(userWrite: UserWrite): User? =
+        userDomainService.updateUser(userWrite.toDomain())?.let{it.toApi()}
+
 }

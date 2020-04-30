@@ -22,5 +22,21 @@ class InMemoryUserRepositoryService : UserRepositoryService{
                 user
             }
         }
+
+    override fun deleteUserByEmail(email: String): Boolean =
+        users.removeIf{it.email == email}
+
+    override fun updateUser(userWrite: UserWrite): User? =
+        if (users.removeIf { it.email == userWrite.email }){
+            val user = userWrite.toUser()
+            users.add(user)
+            user
+        }
+        else {
+            null
+        }
+
+    override fun getAllUsers(): List<User> =
+        users
 }
 
