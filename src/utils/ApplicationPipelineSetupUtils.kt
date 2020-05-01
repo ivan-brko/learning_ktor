@@ -9,6 +9,7 @@ import com.example.domain.user.DevelopmentUserDomainService
 import com.example.domain.user.UserDomainService
 import io.ktor.application.Application
 import io.ktor.application.install
+import io.ktor.config.ApplicationConfig
 import io.ktor.features.ContentNegotiation
 import io.ktor.serialization.json
 import org.kodein.di.Kodein
@@ -24,7 +25,8 @@ fun Application.setupKodeinDI(): Kodein =
                 kodein
             )
         }
-        bind<MongoHandler>() with singleton { MongoHandler() }
+        bind<MongoHandler>() with singleton { MongoHandler(kodein) }
+        bind<ApplicationConfig>() with singleton { environment.config }
     }
 
 fun Application.setupContentNegotiation() =
