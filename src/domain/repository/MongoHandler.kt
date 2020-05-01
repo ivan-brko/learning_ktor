@@ -4,7 +4,7 @@ import com.example.domain.repository.user.registerUsersSerializers
 import org.litote.kmongo.coroutine.coroutine
 import org.litote.kmongo.reactivestreams.KMongo
 
-class MongoHandler() {
+class MongoHandler {
     init {
         registerAdditionalSerializers()
     }

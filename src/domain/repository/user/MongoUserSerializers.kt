@@ -47,7 +47,7 @@ object UserMongoSerializers {
     }
 }
 
-fun registerUsersSerializers(){
+fun registerUsersSerializers() {
     registerSerializer(UserMongoSerializers.Roles.AdminSerializer)
     registerSerializer(UserMongoSerializers.Roles.UserSerializer)
     registerSerializer(UserMongoSerializers.Roles.NoneSerializer)

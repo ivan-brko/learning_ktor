@@ -3,7 +3,7 @@ package com.example.utils
 import kotlinx.serialization.*
 
 @Serializable(with = RoleSerializer::class)
-sealed class Role(val level: Int, val name: String){
+sealed class Role(val level: Int, val name: String) {
 
     object ADMIN : Role(100, "Admin")
 

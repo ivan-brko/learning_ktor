@@ -4,7 +4,6 @@ import com.example.domain.repository.MongoHandler
 import com.example.domain.user.User
 import com.example.domain.user.UserWrite
 import com.example.domain.user.toUser
-import com.mongodb.DuplicateKeyException
 import com.mongodb.MongoWriteException
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
@@ -33,10 +32,10 @@ class MongoUserRepositoryService(kodein: Kodein) :
         val users = getUsersCollection()
         val user = userWrite.toUser()
 
-        return try{
+        return try {
             users.insertOne(user)
             user
-        } catch (e: MongoWriteException){
+        } catch (e: MongoWriteException) {
             if (e.code == 11000) //user with that email already in DB
                 null
             else

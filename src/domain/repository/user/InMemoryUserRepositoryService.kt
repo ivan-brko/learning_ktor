@@ -11,7 +11,7 @@ class InMemoryUserRepositoryService : UserRepositoryService {
         users.find { it.email == email }
 
     override suspend fun insertUser(userWrite: UserWrite): User? =
-        when (users.find { it.email == userWrite.email }){
+        when (users.find { it.email == userWrite.email }) {
             is User -> null
             else -> {
                 val user = userWrite.toUser()
@@ -21,15 +21,14 @@ class InMemoryUserRepositoryService : UserRepositoryService {
         }
 
     override suspend fun deleteUserByEmail(email: String): Boolean =
-        users.removeIf{it.email == email}
+        users.removeIf { it.email == email }
 
     override suspend fun updateUser(userWrite: UserWrite): User? =
-        if (users.removeIf { it.email == userWrite.email }){
+        if (users.removeIf { it.email == userWrite.email }) {
             val user = userWrite.toUser()
             users.add(user)
             user
-        }
-        else {
+        } else {
             null
         }
 

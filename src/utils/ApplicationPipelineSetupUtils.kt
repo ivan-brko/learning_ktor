@@ -16,7 +16,7 @@ import org.kodein.di.generic.bind
 import org.kodein.di.generic.singleton
 
 fun Application.setupKodeinDI(): Kodein =
-    Kodein{
+    Kodein {
         bind<UserDomainService>() with singleton { DevelopmentUserDomainService(kodein) }
         bind<UserApiService>() with singleton { DevelopmentUserApiService(kodein) }
         bind<UserRepositoryService>() with singleton {

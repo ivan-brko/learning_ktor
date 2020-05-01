@@ -1,4 +1,5 @@
 @file:ContextualSerialization(LocalDateTime::class)
+
 package com.example.domain.user
 
 import com.example.utils.Role

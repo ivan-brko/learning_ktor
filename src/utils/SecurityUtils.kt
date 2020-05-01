@@ -1,7 +1,5 @@
 package com.example.utils
 
-import com.auth0.jwt.algorithms.Algorithm
-import com.example.auth.AuthenticationConstants
 import io.ktor.util.hex
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec

@@ -2,9 +2,9 @@ package com.example
 
 import com.example.auth.setupAuthentication
 import com.example.routes.setupRouting
-import com.example.utils.setupKodeinDI
 import com.example.utils.setupContentNegotiation
-import io.ktor.application.*
+import com.example.utils.setupKodeinDI
+import io.ktor.application.Application
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 

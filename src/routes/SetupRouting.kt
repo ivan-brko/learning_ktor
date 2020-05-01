@@ -8,7 +8,7 @@ import io.ktor.locations.Locations
 import io.ktor.routing.routing
 import org.kodein.di.Kodein
 
-fun Application.setupRouting(kodein: Kodein){
+fun Application.setupRouting(kodein: Kodein) {
     install(Locations)
 
     routing {
