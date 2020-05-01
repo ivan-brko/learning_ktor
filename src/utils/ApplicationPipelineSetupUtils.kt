@@ -10,6 +10,7 @@ import com.example.domain.user.UserDomainService
 import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.config.ApplicationConfig
+import io.ktor.features.CORS
 import io.ktor.features.ContentNegotiation
 import io.ktor.serialization.json
 import org.kodein.di.Kodein
@@ -32,4 +33,10 @@ fun Application.setupKodeinDI(): Kodein =
 fun Application.setupContentNegotiation() =
     install(ContentNegotiation) {
         json()
+    }
+
+fun Application.setupCors() =
+    install(CORS){
+        anyHost()
+        //TODO: read about proper way of setting up CORS (not in ktor but general, how permissive should we be)
     }

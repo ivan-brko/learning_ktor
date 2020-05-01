@@ -3,6 +3,7 @@ package com.example
 import com.example.auth.setupAuthentication
 import com.example.routes.setupRouting
 import com.example.utils.setupContentNegotiation
+import com.example.utils.setupCors
 import com.example.utils.setupKodeinDI
 import io.ktor.application.Application
 
@@ -13,6 +14,7 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 fun Application.module(testing: Boolean = false) {
     val kodein = setupKodeinDI()
     setupContentNegotiation()
+    setupCors()
     setupAuthentication(kodein)
     setupRouting(kodein)
 }
