@@ -3,6 +3,8 @@ package com.example.routes.routeBuilders
 import com.example.api.user.User
 import com.example.api.user.UserApiService
 import com.example.api.user.UserWrite
+import com.example.auth.authorization.minimalRoleAllowed
+import com.example.utils.Role
 import io.ktor.application.call
 import io.ktor.auth.authenticate
 import io.ktor.http.HttpStatusCode
@@ -50,11 +52,13 @@ fun Route.setUserRoutes(kodein: Kodein) {
                 }
             }
 
-            delete<EmailLocation> { emailContainer ->
-                if (userApiService.deleteUserByEmail(emailContainer.email))
-                    call.respond(HttpStatusCode.NoContent)
-                else
-                    call.respond(HttpStatusCode.NotFound)
+            minimalRoleAllowed(Role.ADMIN) {
+                delete<EmailLocation> { emailContainer ->
+                    if (userApiService.deleteUserByEmail(emailContainer.email))
+                        call.respond(HttpStatusCode.NoContent)
+                    else
+                        call.respond(HttpStatusCode.NotFound)
+                }
             }
         }
     }

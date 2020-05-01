@@ -2,6 +2,7 @@ package com.example.utils
 
 import com.example.api.user.DevelopmentUserApiService
 import com.example.api.user.UserApiService
+import com.example.auth.authorization.RoleAuthorization
 import com.example.domain.repository.MongoHandler
 import com.example.domain.repository.user.MongoUserRepositoryService
 import com.example.domain.repository.user.UserRepositoryService
@@ -39,4 +40,9 @@ fun Application.setupCors() =
     install(CORS){
         anyHost()
         //TODO: read about proper way of setting up CORS (not in ktor but general, how permissive should we be)
+    }
+
+fun Application.setupAuthorization() =
+    install(RoleAuthorization){
+        validate { false }
     }

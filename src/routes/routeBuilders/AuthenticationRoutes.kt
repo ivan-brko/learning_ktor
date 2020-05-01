@@ -1,9 +1,9 @@
 package com.example.routes.routeBuilders
 
 import com.auth0.jwt.JWT
-import com.example.auth.AuthenticationConstants.jwtHashAlgorithm
-import com.example.auth.PositiveLoginResponse
-import com.example.auth.UserLogin
+import com.example.auth.authentication.AuthenticationConstants.jwtHashAlgorithm
+import com.example.auth.authentication.PositiveLoginResponse
+import com.example.auth.authentication.UserLogin
 import com.example.domain.user.User
 import com.example.domain.user.UserDomainService
 import com.example.utils.hashPassword

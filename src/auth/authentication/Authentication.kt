@@ -1,7 +1,7 @@
-package com.example.auth
+package com.example.auth.authentication
 
 import com.auth0.jwt.JWT
-import com.example.auth.AuthenticationConstants.jwtHashAlgorithm
+import com.example.auth.authentication.AuthenticationConstants.jwtHashAlgorithm
 import com.example.domain.user.UserDomainService
 import io.ktor.application.Application
 import io.ktor.application.install

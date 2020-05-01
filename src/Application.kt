@@ -1,7 +1,8 @@
 package com.example
 
-import com.example.auth.setupAuthentication
+import com.example.auth.authentication.setupAuthentication
 import com.example.routes.setupRouting
+import com.example.utils.setupAuthorization
 import com.example.utils.setupContentNegotiation
 import com.example.utils.setupCors
 import com.example.utils.setupKodeinDI
@@ -16,6 +17,7 @@ fun Application.module(testing: Boolean = false) {
     setupContentNegotiation()
     setupCors()
     setupAuthentication(kodein)
+    setupAuthorization()
     setupRouting(kodein)
 }
 
