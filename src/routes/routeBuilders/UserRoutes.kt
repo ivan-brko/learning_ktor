@@ -31,28 +31,27 @@ fun Route.setUserRoutes(kodein: Kodein) {
                     else -> call.respond(HttpStatusCode.NotFound)
                 }
             }
-
-            get {
-                call.respond(userApiService.getAllUsers())
-            }
-
-            post {
-                val writeUser = call.receive<UserWrite>()
-                when (val user = userApiService.insertUser(writeUser)) {
-                    is User -> call.respond(user)
-                    else -> call.respond(HttpStatusCode.Conflict)
-                }
-            }
-
-            put {
-                val writeUser = call.receive<UserWrite>()
-                when (val user = userApiService.updateUser(writeUser)) {
-                    is User -> call.respond(user)
-                    else -> call.respond(HttpStatusCode.Conflict)
-                }
-            }
-
             minimalRoleAllowed(Role.ADMIN) {
+                get {
+                    call.respond(userApiService.getAllUsers())
+                }
+
+                post {
+                    val writeUser = call.receive<UserWrite>()
+                    when (val user = userApiService.insertUser(writeUser)) {
+                        is User -> call.respond(user)
+                        else -> call.respond(HttpStatusCode.Conflict)
+                    }
+                }
+
+                put {
+                    val writeUser = call.receive<UserWrite>()
+                    when (val user = userApiService.updateUser(writeUser)) {
+                        is User -> call.respond(user)
+                        else -> call.respond(HttpStatusCode.Conflict)
+                    }
+                }
+
                 delete<EmailLocation> { emailContainer ->
                     if (userApiService.deleteUserByEmail(emailContainer.email))
                         call.respond(HttpStatusCode.NoContent)

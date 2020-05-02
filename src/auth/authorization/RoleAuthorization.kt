@@ -13,10 +13,10 @@ class RoleAuthorization internal constructor(val configuration: Configuration) {
     constructor(provider: RoleBasedAuthorizer) : this(Configuration(provider))
 
     fun interceptPipeline(pipeline: ApplicationCallPipeline, role: Role) {
-        pipeline.insertPhaseAfter(ApplicationCallPipeline.Features, authorizationPhase)
-        pipeline.intercept(authorizationPhase){
+        pipeline.insertPhaseBefore(ApplicationCallPipeline.Call, authorizationPhase)
+        pipeline.intercept(authorizationPhase) {
             val call = call
-            if (configuration.provider.authorizationFunction(call, role)){
+            if (configuration.provider.authorizationFunction(call, role)) {
                 return@intercept
             } else {
                 call.respond(HttpStatusCode.Forbidden)
@@ -33,7 +33,7 @@ class RoleAuthorization internal constructor(val configuration: Configuration) {
             pipeline: ApplicationCallPipeline,
             configure: RoleBasedAuthorizer.() -> Unit
         ): RoleAuthorization {
-            val configuration = RoleBasedAuthorizer().apply { configure }
+            val configuration = RoleBasedAuthorizer().apply { configure() }
             return RoleAuthorization(configuration)
         }
     }

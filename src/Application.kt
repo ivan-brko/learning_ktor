@@ -17,7 +17,7 @@ fun Application.module(testing: Boolean = false) {
     setupContentNegotiation()
     setupCors()
     setupAuthentication(kodein)
-    setupAuthorization()
+    setupAuthorization(kodein)
     setupRouting(kodein)
 }
 
