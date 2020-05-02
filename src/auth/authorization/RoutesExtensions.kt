@@ -1,7 +1,6 @@
 package com.example.auth.authorization
 
 import com.example.utils.Role
-import io.ktor.application.ApplicationCallPipeline
 import io.ktor.application.feature
 import io.ktor.routing.*
 

@@ -1,8 +1,8 @@
 package com.example
 
 import com.example.auth.authentication.setupAuthentication
+import com.example.auth.authorization.setupAuthorization
 import com.example.routes.setupRouting
-import com.example.utils.setupAuthorization
 import com.example.utils.setupContentNegotiation
 import com.example.utils.setupCors
 import com.example.utils.setupKodeinDI
