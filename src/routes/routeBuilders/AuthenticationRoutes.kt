@@ -17,10 +17,7 @@ import io.ktor.auth.authenticate
 import io.ktor.http.HttpStatusCode
 import io.ktor.request.receive
 import io.ktor.response.respond
-import io.ktor.routing.Route
-import io.ktor.routing.post
-import io.ktor.routing.put
-import io.ktor.routing.route
+import io.ktor.routing.*
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 import com.example.api.user.UserWrite as ApiUserWrite
@@ -71,6 +68,17 @@ fun Route.setAuthenticationRoutes(kodein: Kodein) {
                     else -> {
                         call.respond(HttpStatusCode.NotFound)
                         return@post
+                    }
+                }
+            }
+
+            get("whoami") {
+                when (val loggedInUser = call.attributes.getOrNull(attributeKeys.loggedInUserAttributeKey)) {
+                    is LoggedInUser -> {
+                        call.respond(loggedInUser.user.toApi())
+                    }
+                    else -> {
+                        call.respond(HttpStatusCode.NotFound)
                     }
                 }
             }
