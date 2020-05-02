@@ -7,6 +7,7 @@ import com.example.utils.setupContentNegotiation
 import com.example.utils.setupCors
 import com.example.utils.setupKodeinDI
 import io.ktor.application.Application
+import org.kodein.di.Kodein
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -14,6 +15,13 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
     val kodein = setupKodeinDI()
+    moduleWithInjectedDependencies(kodein, testing)
+}
+
+//as suggested in ktor documentation, we separate the function in two modules, where
+//one simply creates DI object and passes it to the other
+//this way, we can test easily by calling second module with DI setup for tests
+fun Application.moduleWithInjectedDependencies(kodein: Kodein, testing: Boolean) {
     setupContentNegotiation()
     setupCors()
     setupAuthentication(kodein)
